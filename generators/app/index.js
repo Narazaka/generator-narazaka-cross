@@ -1,3 +1,5 @@
+#!node
+
 'use strict';
 var fso = require('fso');
 var path = require('path');
