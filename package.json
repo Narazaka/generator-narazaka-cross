@@ -1,6 +1,6 @@
 {
   "name": "generator-narazaka-cross",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "homepage": "",
   "author": {
@@ -11,7 +11,7 @@
   "files": [
     "generators"
   ],
-  "bin": "generators/index.js",
+  "bin": "generators/app/index.js",
   "keywords": [
   ],
   "dependencies": {
