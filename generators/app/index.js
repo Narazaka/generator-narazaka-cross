@@ -1,98 +1,40 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+var fso = require('fso');
+var path = require('path');
 var _ = require('lodash');
 
-module.exports = yeoman.Base.extend({
+var org_name = process.argv[process.argv.length - 1].split('/');
+if (org_name.length == 1) {
+  var name = org_name[0];
+  var org = 'Narazaka';
+} else {
+  var name = org_name[1];
+  var org = org_name[0];
+}
 
-  prompting: function () {
-    var done = this.async();
+var moduleName = name;
+var moduleClassName = _.capitalize(_.camelCase(name));
+var moduleExportName = _.camelCase(name);
+var moduleOrganization = org;
+var moduleDesc = "module " + name;
+var moduleAuthor = 'Narazaka';
+var moduleEmail = 'info@narazaka.net';
+var moduleAuthorSite = 'https://narazaka.net/';
+var moduleLicense = 'MIT';
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the shining ' + chalk.red('generator-narazaka-cross') + ' generator!'
-    ));
+var templates_dir = fso.new(__dirname).new('templates')
+var destination_dir = fso.new(name);
+templates_dir.readdirAllSync().forEach(function(filename) {
+  var from = templates_dir.new(filename);
+  var to = destination_dir.new(filename);
 
-    var prompts = [{
-      type: 'string',
-      name: 'moduleName',
-      message: 'What is the name of your module? ',
-      default: 'my-module'
-    },{
-      type: 'string',
-      name: 'moduleDesc',
-      message: 'A description for your module: ',
-      default: 'My very own module'
-    },{
-      type: 'string',
-      name: 'moduleAuthor',
-      message: 'Your name: ',
-      default: 'Narazaka'
-    },{
-      type: 'string',
-      name: 'moduleEmail',
-      message: 'Your email: ',
-      default: 'info@narazaka.net'
-    },{
-      type: 'string',
-      name: 'moduleAuthorSite',
-      message: 'Your site: ',
-      default: 'https://narazaka.net/'
-    },{
-      type: 'string',
-      name: 'moduleOrganization',
-      message: 'Github organization for your module: ',
-      default: 'Narazaka'
-    },{
-      type: 'string',
-      name: 'moduleLicense',
-      message: 'License type: ',
-      default: 'MIT'
-    }];
-
-    this.prompt(prompts, function (props) {
-      var name = _.deburr(props.moduleName);
-
-      this.moduleName = _.kebabCase(name);
-      this.moduleClassName = _.capitalize(_.camelCase(name));
-      this.moduleExportName = _.camelCase(name);
-      this.moduleDesc = _.deburr(props.moduleDesc);
-      this.moduleLicense = _.deburr(props.moduleLicense);
-      this.moduleAuthor = props.moduleAuthor;
-      this.moduleEmail = props.moduleEmail;
-      this.moduleAuthorSite = props.moduleAuthorSite;
-      this.moduleOrganization = _.deburr(props.moduleOrganization);
-
-      done();
-    }.bind(this));
-  },
-
-  writing: function () {
-    this.dest.mkdir('src');
-    this.dest.mkdir('src/lib');
-    this.dest.mkdir('test');
-    this.dest.mkdir('mock');
-    this.copy('.babelrc');
-    this.copy('.codeclimate.yml');
-    this.copy('.eslintrc.yml');
-    this.copy('.gitignore');
-    this.copy('.npmignore');
-    this.copy('.travis.yml');
-    this.copy('appveyor.yml');
-    this.copy('bower.json');
-    this.copy('esdoc.json');
-    this.copy('gulpfile.babel.js');
-    this.copy('karma.conf.js');
-    this.copy('package.json');
-    this.copy('Readme.md');
-    this.copy('webpack.confg.js');
-    this.copy('test/basic.js');
-    this.copy('test/mocha.opts');
-    this.copy('mock/mocha-lazy-bdd.js');
-  },
-
-  install: function () {
-    this.installDependencies();
+  if (from.statSync().isFile()) {
+    var template = from.readFileSync({encoding: 'utf8'});
+    var content = template.replace(/<%=(\s*module.*?)%>/g, function(all, code) {
+      return eval(code);
+    });
+    to.parent().mkpathSync();
+    to.writeFileSync(content, {encoding: 'utf8'});
+    console.log(filename);
   }
 });
