@@ -28,7 +28,7 @@ var templates_dir = fso.new(__dirname).new('templates')
 var destination_dir = fso.new(name);
 templates_dir.readdirAllSync().forEach(function(filename) {
   var from = templates_dir.new(filename);
-  var to = destination_dir.new(filename);
+  var to = destination_dir.new(filename.replace(/^_/, '.'));
 
   if (from.statSync().isFile()) {
     var template = from.readFileSync({encoding: 'utf8'});
