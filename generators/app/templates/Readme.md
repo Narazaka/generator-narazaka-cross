@@ -14,7 +14,7 @@
 [![codecov.io](https://codecov.io/github/<%= moduleOrganization %>/<%= moduleName %>.js/coverage.svg?branch=master)](https://codecov.io/github/<%= moduleOrganization %>/<%= moduleName %>.js?branch=master)
 [![Code Climate](https://codeclimate.com/github/<%= moduleOrganization %>/<%= moduleName %>.js/badges/gpa.svg)](https://codeclimate.com/github/<%= moduleOrganization %>/<%= moduleName %>.js)
 
-<%= moduleDescription %>
+<%= moduleDesc %>
 
 ## Install
 
