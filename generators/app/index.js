@@ -40,3 +40,4 @@ templates_dir.readdirAllSync().forEach(function(filename) {
     console.log(filename);
   }
 });
+destination_dir.new('src/lib').mkpath();
