@@ -6,13 +6,21 @@ var helpers = require('yeoman-test');
 describe('generator-narazaka-cross:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/app'))
-      .withPrompts({someAnswer: true})
+      .withPrompts({
+        moduleName: 'example',
+        moduleDesc: '',
+        moduleAuthor: 'Narazaka',
+        moduleEmail: 'info@narazaka.net',
+        moduleAuthorSite: 'https://narazaka.net/',
+        moduleOrganization: '',
+        moduleLicense: 'MIT',
+      })
       .on('end', done);
   });
 
   it('creates files', function () {
     assert.file([
-      'dummyfile.txt'
+      'test/mocha.opts'
     ]);
   });
 });
