@@ -1,6 +1,6 @@
 {
   "name": "generator-narazaka-cross",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "homepage": "",
   "author": {
@@ -11,14 +11,15 @@
   "files": [
     "generators"
   ],
-  "main": "generators\\index.js",
+  "main": "generators/index.js",
   "keywords": [
     "",
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.22.0",
     "chalk": "^1.0.0",
+    "lodash": "^4.11.2",
+    "yeoman-generator": "^0.22.0",
     "yosay": "^1.0.2"
   },
   "devDependencies": {
